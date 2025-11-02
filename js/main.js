@@ -23,13 +23,38 @@
    /* Preloader
     * -------------------------------------------------- */
     var clPreloader = function() {
+
+            const preloader = document.getElementById("preloader");
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      particle.style.left = Math.random() * 100 + "vw";
+      particle.style.animationDuration = 4 + Math.random() * 6 + "s";
+      particle.style.animationDelay = Math.random() * 3 + "s";
+      preloader.appendChild(particle);
+    }
+
+    // === Light Moves Based on Mouse Position ===
+    const spotlight = document.querySelector(".spotlight");
+    document.addEventListener("mousemove", (e) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      spotlight.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(136, 173, 2, 0.15) 0%, transparent 70%)`;
+    });
+
+    // === Fade Out When Loaded ===
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("preloader").classList.add("fade-out");
+      }, 2500);
+    });
         
         $("html").addClass('cl-preload');
 
         $WIN.on('load', function() {
 
             //force page scroll position to top at page refresh
-            // $('html, body').animate({ scrollTop: 0 }, 'normal');
+             $('html, body').animate({ scrollTop: 0 }, 'normal');
 
             // will first fade out the loading animation 
             $("#loader").fadeOut("slow", function() {
@@ -414,7 +439,8 @@
         //  5: 'This email address looks fake or invalid. Please enter a real email address'
 
         $.ajaxChimp.translations.es = {
-            'submit': 'Submitting...',
+            //'submit': 'Submitting...',
+            'submit': "We're still in making - great takes time. For now, reach us directly through our mail.",
             0: '<i class="fa fa-check"></i> We have sent you a confirmation email',
             1: '<i class="fa fa-warning"></i> You must enter a valid e-mail address.',
             2: '<i class="fa fa-warning"></i> E-mail address is not valid.',

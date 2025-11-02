@@ -521,83 +521,140 @@ form,
  * # preloader
  *
  * ------------------------------------------------------------------- */
+
 #preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #050505;
-    z-index: 800;
-    height: 100%;
-    width: 100%;
-    display: table;
-}
-
-.no-js #preloader, .oldie #preloader {
-    display: none;
-}
-
-#loader {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.line-scale-pulse-out > div {
-    background-color: #39b54a;
-    width: 4px;
-    height: 35px;
-    border-radius: 2px;
-    margin: 2px;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    display: inline-block;
-    -webkit-animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);
-    animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);
-}
-
-.line-scale-pulse-out > div:nth-child(2), .line-scale-pulse-out > div:nth-child(4) {
-    -webkit-animation-delay: -0.4s !important;
-    animation-delay: -0.4s !important;
-}
-
-.line-scale-pulse-out > div:nth-child(1), .line-scale-pulse-out > div:nth-child(5) {
-    -webkit-animation-delay: -0.2s !important;
-    animation-delay: -0.2s !important;
-}
-
-@-webkit-keyframes line-scale-pulse-out {
-    0% {
-        -webkit-transform: scaley(1);
-        transform: scaley(1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 40%, #000000, #000 80%);
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
     }
-    50% {
-        -webkit-transform: scaley(0.4);
-        transform: scaley(0.4);
-    }
-    100% {
-        -webkit-transform: scaley(1);
-        transform: scaley(1);
-    }
-}
 
-@keyframes line-scale-pulse-out {
-    0% {
-        -webkit-transform: scaley(1);
-        transform: scaley(1);
+    /* ===== BACKGROUND LIGHT FX ===== */
+    .spotlight {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.1) 0%,
+        transparent 70%
+      );
+      mix-blend-mode: screen;
+      animation: lightMove 5s ease-in-out infinite alternate;
+      filter: blur(100px);
+      z-index: 1;
     }
-    50% {
-        -webkit-transform: scaley(0.4);
-        transform: scaley(0.4);
-    }
-    100% {
-        -webkit-transform: scaley(1);
-        transform: scaley(1);
-    }
-}
 
+    @keyframes lightMove {
+      0% {
+        transform: translate(0%, 0%) scale(1);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translate(10%, 10%) scale(1.1);
+        opacity: 0.8;
+      }
+    }
 
+    /* ===== PARTICLES FX ===== */
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.432);
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-10vh);
+        opacity: 1;
+      }
+    }
+
+    /* ===== CAMERA GIF ===== */
+    .camera {
+      width: 180px;
+      max-width: 40vw;
+      animation: float 3s ease-in-out infinite alternate,
+                 pulse 4s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.2));
+      z-index: 5;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(10px); }
+      100% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0% { filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.2)); }
+      100% { filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.5)); }
+    }
+
+    /* ===== LOGO TEXT ===== */
+    .logo-text {
+      margin-top: 25px;
+      font-size: 3rem;
+      color: #00b13b65;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      opacity: 0;
+      text-align: center;
+      z-index: 10;
+      position: relative;
+      animation: fadeIn 2.5s ease forwards 1.2s, glow 4s ease-in-out infinite alternate;
+      text-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); filter: blur(5px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 20px rgba(0, 0, 0, 0.3); }
+      100% { text-shadow: 0 0 40px rgba(0, 0, 0, 0.9); }
+    }
+
+    /* ===== FADING OUT ===== */
+    .fade-out {
+      animation: fadeOut 2s ease forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .camera {
+        width: 140px;
+      }
+      .logo-text {
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+      }
+    }
 
 /* ===================================================================
  * # forms
@@ -1221,7 +1278,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .display-1--light {
-    color: #FFFFFF;
+    color: #e4b150;
 }
 
 .display-2 {
@@ -1252,7 +1309,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .subhead--dark {
-    color: #000000;
+    color: #b7b4af;
 }
 
 
@@ -1471,7 +1528,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  * ## main navigation 
  * ------------------------------------------------------------------- */
 .header-nav {
-    background: #0C0C0C;
+    background: #0c0c0ceb;
     color: rgba(255, 255, 255, 0.25);
     font-family: "montserrat-light", sans-serif;
     font-size: 1.3rem;
@@ -2200,8 +2257,8 @@ html.no-csstransitions .home-content__main {
 .s-about {
     padding-top: 16.2rem;
     padding-bottom: 9rem;
-    background-color: #39b54a;
-    color: #010507;
+    background-color: #007945;
+    color: #ffffff;
     position: relative;
 }
 
@@ -3377,11 +3434,11 @@ footer .row {
 
 .footer-logo {
     display: block;
-    margin: -.6rem 0 3.6rem 0;
+    margin: -.6rem 0 0rem 0;
     padding: 0;
     outline: 0;
     border: none;
-    width: 136px;
+    width: 154px;
     height: 92px;
     background: url("../images/logo-footer.png") no-repeat center;
     background-size: 170px 170px;
