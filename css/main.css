@@ -2255,9 +2255,9 @@ html.no-csstransitions .home-content__main {
  *
  * ------------------------------------------------------------------- */
 .s-about {
-    padding-top: 16.2rem;
+    padding-top: 0rem;
     padding-bottom: 9rem;
-    background-color: #007945;
+    background-color: #000000;
     color: #ffffff;
     position: relative;
 }
@@ -2427,7 +2427,7 @@ html.no-csstransitions .home-content__main {
 .s-services {
     padding-top: 16.2rem;
     padding-bottom: 13.2rem;
-    background-color: #FFFFFF;
+    background-color: #000000;
     color: #757575;
     position: relative;
 }
@@ -3655,6 +3655,7 @@ footer .row {
         padding-left: 0;
     }
 }
+
 
 
 /*# sourceMappingURL=main.css.map */
